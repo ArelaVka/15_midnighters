@@ -19,14 +19,13 @@ def get_midnighters(record):
         upload_time = dt.datetime.fromtimestamp(
             record['timestamp'],
             pytz.timezone(record['timezone'])).time()
-        if dt.time(0, 0) < upload_time < dt.time(12, 0):
+        if dt.time(0, 0) < upload_time < dt.time(9, 0):
             return True
 
 
 if __name__ == '__main__':
-    info = load_attempts()
     owls = set()
-    for info in load_attempts():
-        if get_midnighters(info):
-            owls.add(info['username'])
+    for record in load_attempts():
+        if get_midnighters(record):
+            owls.add(record['username'])
     print(owls)
