@@ -1,5 +1,5 @@
 import requests
-import datetime
+import datetime as dt
 import pytz
 
 
@@ -16,16 +16,17 @@ def load_attempts():
 
 def get_midnighters(record):
     if record['timestamp']:
-        return datetime.datetime.fromtimestamp(
+        upload_time = dt.datetime.fromtimestamp(
             record['timestamp'],
             pytz.timezone(record['timezone'])).time()
-        # upload_time = datetime.date.fromtimestamp(record['timestamp'])
+        if dt.time(0, 0) < upload_time < dt.time(12, 0):
+            return True
 
 
 if __name__ == '__main__':
     info = load_attempts()
-    out = set()
+    owls = set()
     for info in load_attempts():
-        print(get_midnighters(info))
-        # out.add(info['username'])
-        # print(out)
+        if get_midnighters(info):
+            owls.add(info['username'])
+    print(owls)
