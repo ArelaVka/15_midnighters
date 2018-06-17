@@ -4,28 +4,33 @@ import pytz
 
 
 def load_attempts():
-    main_url = 'https://devman.org/api/challenges/solution_attempts/'
-    response_data = requests.get(main_url).json()
-    count_of_pages = response_data['number_of_pages']
+    url = 'https://devman.org/api/challenges/solution_attempts/'
+    count_of_pages = requests.get(url).json()['number_of_pages']
     for page in range(1, count_of_pages + 1):
-        url = main_url + '?page=' + str(page)
-        page_records_data = requests.get(url).json()
-        for record in page_records_data['records']:
+        page_param = {'page': page}
+        one_page_records = requests.get(url, params=page_param).json()
+        for record in one_page_records['records']:
             yield record
 
 
-def get_midnighters(record):
+def is_midnighter(record):
     if record['timestamp']:
-        upload_time = dt.datetime.fromtimestamp(
+        attempt_time = dt.datetime.fromtimestamp(
             record['timestamp'],
             pytz.timezone(record['timezone'])).time()
-        if dt.time(0, 0) < upload_time < dt.time(9, 0):
+        if 0 < attempt_time.hour < 9:
             return True
+
+
+def print_owls(set_of_owls):
+    print('List of owls:\n')
+    for owl in set_of_owls:
+        print('Username -', owl)
 
 
 if __name__ == '__main__':
     owls = set()
     for record in load_attempts():
-        if get_midnighters(record):
+        if is_midnighter(record):
             owls.add(record['username'])
-    print(owls)
+    print_owls(owls)

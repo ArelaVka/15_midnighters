@@ -7,9 +7,19 @@ The source of information - [devman's API](https://devman.org/api/challenges/sol
 # Example of using
 
 ```cmd
-C:\>python C:\Users\14687198\GIT\15_midnighters\seek_dev_nighters.py
+C:\>python C:\GIT\15_midnighters\seek_dev_nighters.py
+List of owls:
 
-{'suchkov.dv', 'ca87fe91df364a75', 'id185085967', 'dp.intelbusiness', 'ИванСиницын', 'sergm7', 'paganismrus', 'id311542249', 'ksushazhukova', 'timurgosu', 'SergeiKhrustalev', 'v.a.malcev', 'pawwlyk52', 'rancvova', '3e815fa8a81b4ecc', 'raferti', 'РамильЯббаров', 'podvodka', 'oeananas', 'nick__korolev', 'vonabatchikov', 'alexander.solovyev7', 'val7743'}
+Username - oeananas
+Username - paganismrus
+Username - id185085967
+Username - id311542249
+Username - dp.intelbusiness
+Username - suchkov.dv
+Username - alexander.solovyev7
+Username - timurgosu
+Username - podvodka
+Username - РамильЯббаров
 ```
 
 # Project Goals
