@@ -5,12 +5,16 @@ import pytz
 
 def load_attempts():
     url = 'https://devman.org/api/challenges/solution_attempts/'
-    count_of_pages = requests.get(url).json()['number_of_pages']
-    for page in range(1, count_of_pages + 1):
+    page = 0
+    while True:
+        page += 1
         page_param = {'page': page}
         one_page_records = requests.get(url, params=page_param).json()
+        count_of_pages = one_page_records['number_of_pages']
         for record in one_page_records['records']:
             yield record
+        if page == count_of_pages:
+            break
 
 
 def is_midnighter(record):
@@ -18,8 +22,7 @@ def is_midnighter(record):
         attempt_time = dt.datetime.fromtimestamp(
             record['timestamp'],
             pytz.timezone(record['timezone'])).time()
-        if 0 < attempt_time.hour < 9:
-            return True
+        return 0 < attempt_time.hour < 9
 
 
 def print_owls(set_of_owls):
